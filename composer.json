@@ -1,0 +1,13 @@
+{
+    "name": "dezodev/slim-simple-mvc",
+    "description": "A Slim 4 simple MVC skeleton",
+    "type": "project",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Dezodev",
+            "email": "dezodev@gmail.com"
+        }
+    ],
+    "require": {}
+}
