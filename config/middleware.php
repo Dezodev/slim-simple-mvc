@@ -11,6 +11,8 @@ return function (App $app) {
     // Add the twig middleware
     $app->add(TwigMiddleware::class);
 
+    // Add the CORS Middleware
+    $app->add(\App\Middleware\CorsMiddleware::class);
 
     // Add the Slim built-in routing middleware
     $app->addRoutingMiddleware();
