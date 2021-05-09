@@ -41,8 +41,17 @@ $settings['twig'] = [
     'options' => [
         // Should be set to true in production
         'cache_enabled' => false,
-        'cache_path' => __DIR__ . '/../tmp/twig',
+        'cache_path' => __DIR__ . '/../var/twig',
     ],
+];
+
+// Logger settings
+$settings['logger'] = [
+    'name' => 'app',
+    'path' => __DIR__ . '/../var/logs',
+    'filename' => 'app.log',
+    'level' => \Monolog\Logger::DEBUG,
+    'file_permission' => 0775,
 ];
 
 return $settings;

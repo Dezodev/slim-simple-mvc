@@ -6,6 +6,7 @@ use Slim\Factory\AppFactory;
 use Slim\Middleware\ErrorMiddleware;
 use Slim\Views\Twig;
 use Slim\Views\TwigMiddleware;
+use App\Factory\LoggerFactory;
 
 return [
     'settings' => function () {
@@ -22,14 +23,20 @@ return [
         $app = $container->get(App::class);
         $settings = $container->get('settings')['error'];
 
+        $logger = $container->get(LoggerFactory::class)
+            ->addFileHandler()
+            ->createLogger('error');
+
         return new ErrorMiddleware(
             $app->getCallableResolver(),
             $app->getResponseFactory(),
             (bool)$settings['display_error_details'],
             (bool)$settings['log_errors'],
-            (bool)$settings['log_error_details']
+            (bool)$settings['log_error_details'],
+            $logger
         );
     },
+
 
     // Twig templates
     Twig::class => function (ContainerInterface $container) {
@@ -52,5 +59,9 @@ return [
             $container->get(App::class),
             Twig::class
         );
+    },
+
+    LoggerFactory::class => function (ContainerInterface $container) {
+        return new LoggerFactory($container->get('settings')['logger']);
     },
 ];
