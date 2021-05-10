@@ -7,21 +7,22 @@ use Slim\Middleware\ErrorMiddleware;
 use Slim\Views\Twig;
 use Slim\Views\TwigMiddleware;
 use App\Factory\LoggerFactory;
+use Laminas\Config\Config;
 
 return [
-    'settings' => function () {
-        return require __DIR__ . '/settings.php';
-    },
-
     App::class => function (ContainerInterface $container) {
         AppFactory::setContainer($container);
 
         return AppFactory::create();
     },
 
+    Config::class => function () {
+        return new Config(require __DIR__ . '/settings.php');
+    },
+
     ErrorMiddleware::class => function (ContainerInterface $container) {
         $app = $container->get(App::class);
-        $settings = $container->get('settings')['error'];
+        $settings = $container->get(Config::class)->get('error')->toArray();
 
         $logger = $container->get(LoggerFactory::class)
             ->addFileHandler()
@@ -40,13 +41,12 @@ return [
 
     // Twig templates
     Twig::class => function (ContainerInterface $container) {
-        $settings = $container->get('settings');
-        $twigSettings = $settings['twig'];
+        $settings = $container->get(Config::class)->get('twig')->toArray();
 
-        $options = $twigSettings['options'];
+        $options = $settings['options'];
         $options['cache'] = $options['cache_enabled'] ? $options['cache_path'] : false;
 
-        $twig = Twig::create($twigSettings['paths'], $options);
+        $twig = Twig::create($settings['paths'], $options);
 
         // Twig Extensions
         // ...
@@ -62,6 +62,6 @@ return [
     },
 
     LoggerFactory::class => function (ContainerInterface $container) {
-        return new LoggerFactory($container->get('settings')['logger']);
+        return new LoggerFactory($container->get(Config::class)->get('logger')->toArray());
     },
 ];
