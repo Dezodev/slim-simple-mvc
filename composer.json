@@ -11,6 +11,7 @@
     ],
     "require": {
         "laminas/laminas-config": "^3.5",
+        "league/flysystem": "^2.0",
         "monolog/monolog": "^2.2",
         "php-di/php-di": "^6.3",
         "slim/psr7": "^1.3",

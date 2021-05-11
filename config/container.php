@@ -8,6 +8,7 @@ use Slim\Views\Twig;
 use Slim\Views\TwigMiddleware;
 use App\Factory\LoggerFactory;
 use Laminas\Config\Config;
+use League\Flysystem\Filesystem;
 
 return [
     App::class => function (ContainerInterface $container) {
@@ -63,5 +64,11 @@ return [
 
     LoggerFactory::class => function (ContainerInterface $container) {
         return new LoggerFactory($container->get(Config::class)->get('logger')->toArray());
+    },
+
+    Filesystem::class => function (ContainerInterface $container) {
+        $settings = $container->get(Config::class)->get('storage')->toArray();
+
+        return new Filesystem($settings['adapter']);
     },
 ];

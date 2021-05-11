@@ -6,6 +6,7 @@ use DI\Container;
 use Slim\Views\Twig;
 use Laminas\Config\Config;
 use App\Factory\LoggerFactory;
+use League\Flysystem\Filesystem;
 
 class Controller
 {
@@ -13,12 +14,14 @@ class Controller
     protected $twig;
     protected $logger;
     protected $config;
+    protected $filesystem;
 
-    public function __construct(Container $container, Twig $twig, LoggerFactory $logger, Config $config)
+    public function __construct(Container $container, Twig $twig, LoggerFactory $logger, Config $config, Filesystem $filesystem)
     {
         $this->container = $container;
         $this->twig = $twig;
         $this->config = $config;
+        $this->filesystem = $filesystem;
         $this->logger = $logger->addFileHandler()
             ->addConsoleHandler()
             ->createLogger(static::class);

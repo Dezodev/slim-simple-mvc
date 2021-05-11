@@ -1,4 +1,6 @@
 <?php
+use League\Flysystem\Local\LocalFilesystemAdapter;
+use League\Flysystem\UnixVisibility\PortableVisibilityConverter;
 
 // Settings
 $settings = [];
@@ -46,6 +48,25 @@ $settings['logger'] = [
     'filename' => 'app.log',
     'level' => \Monolog\Logger::DEBUG,
     'file_permission' => 0775,
+];
+
+// Storage settings
+$settings['storage'] = [
+    'adapter' => new LocalFilesystemAdapter(
+        __DIR__ . '/../var/storage/',
+        PortableVisibilityConverter::fromArray(
+            [
+                'file' => [
+                    'public' => 0640,
+                    'private' => 0604,
+                ],
+                'dir' => [
+                    'public' => 0740,
+                    'private' => 7604,
+                ],
+            ]
+        ),
+    ),
 ];
 
 return $settings;
