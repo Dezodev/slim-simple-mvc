@@ -9,7 +9,7 @@ $settings = [];
 $settings['timezone'] = 'Europe/Paris';
 
 // Path settings
-$settings['root'] = dirname(__DIR__);
+$settings['root'] = APP_ROOT;
 $settings['temp'] = $settings['root'] . '/tmp';
 $settings['public'] = $settings['root'] . '/public';
 
@@ -31,20 +31,20 @@ $settings['error'] = [
 $settings['twig'] = [
     // Template paths
     'paths' => [
-        __DIR__ . '/../templates',
+        APP_ROOT . '/templates',
     ],
     // Twig environment options
     'options' => [
         // Should be set to true in production
         'cache_enabled' => false,
-        'cache_path' => __DIR__ . '/../var/twig',
+        'cache_path' => APP_ROOT . '/var/twig',
     ],
 ];
 
 // Logger settings
 $settings['logger'] = [
     'name' => 'app',
-    'path' => __DIR__ . '/../var/logs',
+    'path' => APP_ROOT . '/var/logs',
     'filename' => 'app.log',
     'level' => \Monolog\Logger::DEBUG,
     'file_permission' => 0775,
@@ -53,7 +53,7 @@ $settings['logger'] = [
 // Storage settings
 $settings['storage'] = [
     'adapter' => new LocalFilesystemAdapter(
-        __DIR__ . '/../var/storage/',
+        APP_ROOT . '/var/storage/',
         PortableVisibilityConverter::fromArray(
             [
                 'file' => [

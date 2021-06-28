@@ -4,7 +4,10 @@ use DI\ContainerBuilder;
 use Laminas\Config\Config;
 use Slim\App;
 
-require_once __DIR__ . '/../vendor/autoload.php';
+define('APP_ROOT', dirname(dirname(__DIR__)));
+define('APP_SRC', APP_ROOT . '/src');
+
+require_once APP_ROOT . '/vendor/autoload.php';
 
 $containerBuilder = new ContainerBuilder();
 
