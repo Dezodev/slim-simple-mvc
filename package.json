@@ -1,0 +1,26 @@
+{
+    "name": "slim-simple-mvc",
+    "version": "0.0.1",
+    "description": "A Slim 4 simple MVC skeleton",
+    "main": "index.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/Dezodev/slim-simple-mvc.git"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/Dezodev/slim-simple-mvc/issues"
+    },
+    "homepage": "https://github.com/Dezodev/slim-simple-mvc#readme",
+    "devDependencies": {
+        "laravel-mix": "^6.0.25",
+        "resolve-url-loader": "^4.0.0",
+        "sass": "^1.35.1",
+        "sass-loader": "^12.1.0"
+    }
+}
